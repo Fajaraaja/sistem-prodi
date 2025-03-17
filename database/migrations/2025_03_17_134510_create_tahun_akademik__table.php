@@ -4,21 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->id('id_user');
-            $table->string('username')->unique();
-            $table->enum('role', ['admin', 'dosen', 'mahasiswa']);
-            $table->string('password');
+        Schema::create('tahun_akademik_', function (Blueprint $table) {
+            $table->id('id_tahun_akademik');
+            $table->string('tahun');
+            $table->enum('ganjil_genap', ['ganjil', 'genap']);
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tahun_akademik_');
     }
 };
