@@ -9,7 +9,7 @@ class TahunAkademik extends Model
 {
     use HasFactory;
 
-    protected $table = 'tahun_akademik_';
+    protected $table = 'tahun_akademik';
 
     protected $primaryKey = 'id_tahun_akademik';
 

@@ -18,7 +18,13 @@ class Mahasiswa extends Model
         'nama_mahasiswa',
         'no_hp',
         'alamat',
-        'angkatan',
+        'tahun_masuk',
         'status_aktif',
     ];
+
+
+    public function tahunMasuk()
+    {
+        return $this->belongsTo(TahunAkademik::class, 'tahun_masuk');
+    }
 }

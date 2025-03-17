@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tahun_akademik_', function (Blueprint $table) {
+        Schema::create('tahun_akademik', function (Blueprint $table) {
             $table->id('id_tahun_akademik');
             $table->string('tahun');
             $table->enum('ganjil_genap', ['ganjil', 'genap']);

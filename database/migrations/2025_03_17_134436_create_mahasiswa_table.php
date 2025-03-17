@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_mahasiswa');
             $table->string('no_hp');
             $table->text('alamat');
-            $table->year('angkatan');
+            $table->string('tahun_masuk');
             $table->boolean('status_aktif')->default(true);
             $table->timestamps();
         });

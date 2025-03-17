@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\TahunAkademik;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Mahasiswa;
@@ -18,6 +19,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $tahunAkademikData = [
+            ['tahun' => '2022/2023', 'ganjil_genap' => 'ganjil'],
+            ['tahun' => '2022/2023', 'ganjil_genap' => 'genap'],
+            ['tahun' => '2023/2024', 'ganjil_genap' => 'ganjil'],
+            ['tahun' => '2023/2024', 'ganjil_genap' => 'genap'],
+            ['tahun' => '2024/2025', 'ganjil_genap' => 'ganjil'],
+            ['tahun' => '2024/2025', 'ganjil_genap' => 'genap'],
+        ];
+
+        DB::table('tahun_akademik')->insert($tahunAkademikData);
+
+        // Get Tahun Akademik IDs
+        $tahunAkademikIds = TahunAkademik::pluck('id_tahun_akademik')->toArray();
         for ($i = 1; $i <= 10; $i++) {
             $nim = '22010' . str_pad($i, 2, '0', STR_PAD_LEFT);
             $mahasiswa = Mahasiswa::create([
@@ -25,7 +40,7 @@ class DatabaseSeeder extends Seeder
                 'nama_mahasiswa' => 'Mahasiswa ' . $i,
                 'no_hp' => '081234567' . str_pad($i, 3, '0', STR_PAD_LEFT),
                 'alamat' => 'Jl. Pendidikan No. ' . $i,
-                'angkatan' => rand(2020, 2024),
+                'tahun_masuk' => $tahunAkademikIds[array_rand($tahunAkademikIds)],
                 'status_aktif' => true,
             ]);
 
@@ -34,7 +49,6 @@ class DatabaseSeeder extends Seeder
                 'username' => $mahasiswa->nim,
                 'role' => 'mahasiswa',
                 'password' => Hash::make('123'),
-                'id_mahasiswa' => $mahasiswa->id_mahasiswa,
             ]);
         }
 
@@ -53,7 +67,6 @@ class DatabaseSeeder extends Seeder
                 'username' => $dosen->nidn,
                 'role' => 'dosen',
                 'password' => Hash::make('123'),
-                'id_dosen' => $dosen->id_dosen,
             ]);
         }
 
@@ -68,25 +81,7 @@ class DatabaseSeeder extends Seeder
             'username' => $admin->nip,
             'role' => 'admin',
             'password' => Hash::make('123'),
-            'id_admin' => $admin->id_admin,
         ]);
 
-        $tahunAkademik = [
-            '2022/2023',
-            '2023/2024',
-            '2024/2025',
-        ];
-
-        foreach ($tahunAkademik as $tahun) {
-            TahunAkademik::create([
-                'tahun' => $tahun,
-                'ganjil_genap' => 'ganjil',
-            ]);
-
-            TahunAkademik::create([
-                'tahun' => $tahun,
-                'ganjil_genap' => 'genap',
-            ]);
-        }
     }
 }
